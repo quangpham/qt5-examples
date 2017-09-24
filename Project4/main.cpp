@@ -2,10 +2,10 @@
 Author: hunght
 Date: 19-09-2017
 Email: hunght.thaibinh@gmail.com
-http://telekmedia.com/qt/amazon-1.json
+http://telekmedia.com/qt/facebook-2.json
 Load json
 Open urls
-Save content to id.html
+Run js
 ***********************************************************/
 
 #include <QApplication>

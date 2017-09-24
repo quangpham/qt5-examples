@@ -13,6 +13,7 @@
 #include <QThread>
 #include <QWebEngineView>
 #include <QFile>
+#include <CreateDelay.h>
 
 class ManageDataFromUrl : public QObject
 {
@@ -33,18 +34,21 @@ private:
     QStringList m_listCmd;
     QStringList m_listUrl;
     QStringList m_listType;
+    QStringList m_listDelay;
     QUrl m_url;
-    QThread *m_thread;
     QWebEngineView *m_view = new QWebEngineView();
     int curentUrlIndex = 1;
     int currentFileIndex = 0;
+    CreateDelay *m_createDelay;
+    QThread *m_thread;
 
 signals:
-    void getHTML(QString sHTML);
+    void startCommand();
+    void startNextUrl();
 public slots:
     void loadTheFirstUrl();
     void loadNextURl();
-    void handleHTML(QString sHTML);
+    void runCommand();
 };
 
 #endif // MANAGEDATAFROMURL_H
