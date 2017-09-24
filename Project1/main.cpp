@@ -12,7 +12,7 @@ Save content to id.html
 #include <QtWidgets>
 #include "mainwindow.h"
 #include <qtwebenginewidgetsglobal.h>
-#include <QtNetwork/QNetworkProxy>
+//#include <QtNetwork/QNetworkProxy>
 
 #define SERVER_URL "http://telekmedia.com/qt/amazon-1.json"
 
@@ -28,14 +28,14 @@ int main(int argc, char *argv[])
     MainWindow *browser = new MainWindow(url);
     browser->show();
 
-    QNetworkProxy proxy;
+//    QNetworkProxy proxy;
 
-    proxy = QNetworkProxy::HttpProxy;
-    proxy.setHostName("46.101.24.27");
-    proxy.setPort(3128);
-    proxy.setUser("");
-    proxy.setPassword("");
-    QNetworkProxy::setApplicationProxy(proxy);
+//    proxy = QNetworkProxy::HttpProxy;
+//    proxy.setHostName("46.101.24.27");
+//    proxy.setPort(3128);
+//    proxy.setUser("");
+//    proxy.setPassword("");
+//    QNetworkProxy::setApplicationProxy(proxy);
 
     return a.exec();
 }

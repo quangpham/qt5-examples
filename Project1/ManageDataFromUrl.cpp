@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <QDebug>
 #include <QtWidgets>
+#include <QFile>
+#include <QTextStream>
 
 ManageDataFromUrl::ManageDataFromUrl(QWebEngineView *view, const QUrl &url)
 {
@@ -9,6 +11,7 @@ ManageDataFromUrl::ManageDataFromUrl(QWebEngineView *view, const QUrl &url)
     m_view = view;
 
     connect(m_view, SIGNAL(loadFinished(bool)), this, SLOT(loadNextURl()));
+    connect(this, SIGNAL(getHTML(QString)), this, SLOT(handleHTML(QString)));
 
     this->SendRequestToServer(m_url);
 }
@@ -52,15 +55,26 @@ void ManageDataFromUrl::handleDataReviceFromURL(QString m_data)
             qDebug() << "Document is not an object";
         }
     QJsonObject jsonObject = jsonResponse.object();
-    QJsonArray jsonArray = jsonObject["items"].toArray();
+    QJsonArray jsonArray = jsonObject["pages"].toArray();
     foreach (const QJsonValue & value, jsonArray) {
         QJsonObject obj = value.toObject();
-        m_listId.append(obj["id"].toString());
         m_listUrl.append(obj["url"].toString());
+
+        QJsonArray jsonArray_action = obj["action"].toArray();
+        foreach (const QJsonValue &action_element, jsonArray_action) {
+            QString jsonType = action_element.toObject()["type"].toString();
+            m_listType.append(jsonType);
+             QString jsonNameFile = action_element.toObject()["filename"].toString();
+             m_listFileName.append(jsonNameFile);
+        }
+
+
     }
 
     for (int i = 0; i < m_listUrl.length(); i++) {
         qDebug() << m_listUrl.at(i);
+        qDebug() << m_listType.at(i);
+        qDebug() << m_listFileName.at(i);
     }
 }
 
@@ -71,8 +85,42 @@ void ManageDataFromUrl::loadTheFirstUrl()
 
 void ManageDataFromUrl::loadNextURl()
 {
+    m_view->page()->toHtml([this](const QString& result) mutable {emit getHTML(result);});
     if (curentUrlIndex < m_listUrl.length()) {
          m_view->load(m_listUrl.at(curentUrlIndex));
          curentUrlIndex++;
     }
+}
+
+void ManageDataFromUrl::handleHTML(QString sHTML)
+{
+    writeContentHTMLtoFile(m_listFileName.at(currentFileIndex), sHTML);
+    readContentHTMLfromFile(m_listFileName.at(currentFileIndex));
+    currentFileIndex++;
+}
+
+void ManageDataFromUrl::writeContentHTMLtoFile(QString fileName, QString data)
+{
+    QFile file(fileName);
+    if (!file.open(QFile::WriteOnly | QFile::Text) ) {
+        qDebug() << "Couldn't open file for writing";
+        return;
+    }
+
+    QTextStream out(&file);
+    out << data;
+    file.flush();
+    file.close();
+}
+
+void ManageDataFromUrl::readContentHTMLfromFile(QString fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+        qDebug() << "Coudln't open file for reading";
+        return;
+    }
+    QTextStream in(&file);
+    QString myText = in.readAll();
+    qDebug() << myText;
 }
