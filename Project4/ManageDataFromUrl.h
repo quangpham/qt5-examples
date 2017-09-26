@@ -34,7 +34,7 @@ private:
     QStringList m_listCmd;
     QStringList m_listUrl;
     QStringList m_listType;
-    QStringList m_listDelay;
+    QList<int> m_listDelay;
     QUrl m_url;
     QWebEngineView *m_view = new QWebEngineView();
     int curentUrlIndex = 1;

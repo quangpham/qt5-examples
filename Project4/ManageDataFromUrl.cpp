@@ -71,7 +71,7 @@ void ManageDataFromUrl::handleDataReviceFromURL(QString m_data)
             m_listType.append(jsonType);
             QString jsonNameFile = action_element.toObject()["js_cmd"].toString();
             m_listCmd.append(jsonNameFile);
-            QString jsonDelay = action_element.toObject()["delay"].toString();
+            int jsonDelay = action_element.toObject()["delay"].toInt();
             m_listDelay.append(jsonDelay);
         }
     }
