@@ -1,0 +1,25 @@
+{
+  "pages": [
+    {
+      "url": "https://www.facebook.com/",
+      "action": [
+        {
+          "type": "runjs",
+          "js_cmd": "alert(jQuery('#productTitle').text().trim());"
+        },
+        {
+          "type": "runjs",
+          "js_cmd": "document.getElementById('email').value = 'quang.pham@msn.com';"
+        },
+        {
+          "type": "runjs",
+          "js_cmd": "document.getElementById('pass').value = 'Vietnam123';"
+        },
+        {
+          "type": "runjs",
+          "js_cmd": "document.getElementById('login_form').submit();"
+        }
+      ]
+    }
+  ]
+}

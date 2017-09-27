@@ -1,0 +1,22 @@
+{
+  "pages": [
+    {
+      "proxy": {
+        "enable": true,
+        "ip": "46.101.24.27",
+        "type": "HTTP",
+        "port": 3128,
+        "username": "",
+        "password": ""
+      },
+
+      "url": "http://showip.com/",
+      "action": [
+        {
+          "type": "runjs",
+          "js_cmd": "alert(document.querySelectorAll('big')[0].innerText);"
+        }
+      ]
+    }
+  ]
+}

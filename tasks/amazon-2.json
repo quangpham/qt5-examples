@@ -1,0 +1,13 @@
+{
+  "pages": [
+    {
+      "url": "https://www.amazon.com/Dr-Elseys-Precious-Ultra-Litter/dp/B0009X29WK/",
+      "action": [
+        {
+          "type": "runjs",
+          "js_cmd": "alert(jQuery('#productTitle').text().trim());"
+        }
+      ]
+    }
+  ]
+}

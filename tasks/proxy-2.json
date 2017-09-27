@@ -1,0 +1,49 @@
+{
+  "pages": [
+    {
+      "proxy": {
+        "enable": true,
+        "ip": "46.101.24.27",
+        "type": "HTTP",
+        "port": 3128,
+        "username": "",
+        "password": ""
+      },
+
+      "url": "http://showip.com/",
+      "action": [
+        {
+          "type": "save_html_local",
+          "filename": "1.html"
+        }
+      ]
+    },
+    {
+      "url": "http://showip.com/",
+      "action": [
+        {
+          "type": "save_html_local",
+          "filename": "2.html"
+        }
+      ]
+    },
+    {
+      "proxy": {
+        "enable": true,
+        "ip": "128.199.70.76",
+        "type": "HTTP",
+        "port": 3128,
+        "username": "",
+        "password": ""
+      },
+
+      "url": "http://showip.com/",
+      "action": [
+        {
+          "type": "save_html_local",
+          "filename": "3.html"
+        }
+      ]
+    }
+  ]
+}

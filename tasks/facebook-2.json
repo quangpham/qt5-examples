@@ -1,0 +1,38 @@
+{
+  "pages": [
+    {
+      "url": "https://www.facebook.com/",
+      "action": [
+        {
+          "type": "runjs",
+          "js_cmd": "document.getElementById('email').value = 'quang.pham@msn.com';"
+        },
+        {
+          "type": "runjs",
+          "js_cmd": "document.getElementById('pass').value = 'Vietnam123';"
+        },
+        {
+          "type": "runjs",
+          "js_cmd": "document.getElementById('login_form').submit();"
+        },
+        {
+          "type": "delay",
+          "delay": 1000
+        }
+      ]
+    },
+    {
+      "url": "https://www.facebook.com/humansofsaigonn",
+      "action": [
+        {
+          "type": "runjs",
+          "js_cmd": "for (let i = 0; i < 20; i++) { setTimeout(function(){ document.body.scrollTop = document.body.scrollHeight;}, 2000*i);}"
+        },
+        {
+          "type": "delay",
+          "delay": 45000
+        }
+      ]
+    }
+  ]
+}
