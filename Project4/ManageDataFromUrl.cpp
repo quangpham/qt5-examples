@@ -61,47 +61,57 @@ void ManageDataFromUrl::handleDataReviceFromURL(QString m_data)
         }
     QJsonObject jsonObject = jsonResponse.object();
     QJsonArray jsonArray = jsonObject["pages"].toArray();
+    QList<QString> mlist;
     foreach (const QJsonValue & value, jsonArray) {
+        mlist.clear();
         QJsonObject obj = value.toObject();
-        m_listUrl.append(obj["url"].toString());
-
+        mlist.append(obj["url"].toString());
         QJsonArray jsonArray_action = obj["action"].toArray();
         foreach (const QJsonValue &action_element, jsonArray_action) {
             QString jsonType = action_element.toObject()["type"].toString();
-            m_listType.append(jsonType);
+            mlist.append(jsonType);
             QString jsonNameFile = action_element.toObject()["js_cmd"].toString();
-            m_listCmd.append(jsonNameFile);
+            mlist.append(jsonNameFile);
             int jsonDelay = action_element.toObject()["delay"].toInt();
-            m_listDelay.append(jsonDelay);
+            mlist.append(QString::number(jsonDelay));
+        }
+        m_list.append(mlist);
+    }
+    for (int a = 0; a < m_list.length(); a++) {
+        QList<QString> a_list = m_list.at(a);
+        for (int b = 0; b < a_list.length(); b++) {
+            qDebug() << a_list.at(b);
         }
     }
 
-    for (int i = 0; i < m_listType.length(); i++) {
-        qDebug() << m_listType.at(i);
-    }
-    for (int i = 0; i < m_listUrl.length(); i++) {
-        qDebug() << m_listUrl.at(i);
-    }
-    for (int i = 0; i < m_listDelay.length(); i++) {
-        qDebug() << m_listDelay.at(i);
-    }
-    for (int i = 0; i < m_listCmd.length(); i++) {
-        qDebug() << m_listCmd.at(i);
-    }
+//    for (int i = 0; i < m_listType.length(); i++) {
+//        qDebug() << m_listType.at(i);
+//    }
+//    for (int i = 0; i < m_listUrl.length(); i++) {
+//        qDebug() << m_listUrl.at(i);
+//    }
+//    for (int i = 0; i < m_listDelay.length(); i++) {
+//        qDebug() << m_listDelay.at(i);
+//    }
+//    for (int i = 0; i < m_listCmd.length(); i++) {
+//        qDebug() << m_listCmd.at(i);
+//    }
 }
 
 void ManageDataFromUrl::loadTheFirstUrl()
 {
-    m_view->load(m_listUrl.at(0));
+//    m_view->load(m_listUrl.at(0));
+    m_view->load(m_list.at(0).at(0));
 }
 
 void ManageDataFromUrl::loadNextURl()
 {
-    qDebug() << "Start Load the next URL";
-    if (curentUrlIndex <= m_listUrl.length()) {
-        qDebug() << "Start here";
-         m_view->load(m_listUrl.at(curentUrlIndex - 1));
+    m_thread->terminate();
+    qDebug() << "Start Load the next URL" << m_list.length();
+    for (int i = 1; i < m_list.length(); i++) {
+        m_view->load(m_list.at(i).at(0));
     }
+    curentUrlIndex++;
 }
 
 void ManageDataFromUrl::writeContentHTMLtoFile(QString fileName, QString data)
@@ -132,22 +142,18 @@ void ManageDataFromUrl::readContentHTMLfromFile(QString fileName)
 
 void ManageDataFromUrl::runCommand()
 {
-    qDebug() << "Start run command 1234456676";
-    if (curentUrlIndex == 1) {
-        qDebug() << "Start run command 1";
-        for (int i = 0; i < 4; i++) {
-            if (m_listType.at(i) == "runjs") {
-                m_view->page()->runJavaScript(m_listCmd.at(i));
+    qDebug() << "Start run Commnad" << curentUrlIndex;
+    if (curentUrlIndex < m_list.length()) {
+        QList<QString> mlist = m_list.at(curentUrlIndex);
+        for (int j = 0; j < mlist.length(); j++) {
+            if (mlist.at(j) == "runjs") {
+                qDebug() << "Run Command" << mlist.at(j+1);
+                m_view->page()->runJavaScript(mlist.at(j+1));
+            } else if (mlist.at(j) == "delay") {
+                qDebug() << "Start Delay" << mlist.at(j+2);
+                m_createDelay->setTimeDelay((mlist.at(j+2)).toInt() / 1000);
+                m_thread->start();
             }
         }
-//        sleep(5);
-        m_thread->start();
-        qDebug() << "Start Signal 1";
-//        emit startNextUrl();
     }
-    if (currentFileIndex == 2) {
-        qDebug() << "Start run command 2";
-        m_view->page()->runJavaScript(m_listCmd.at(4));
-    }
-    curentUrlIndex++;
 }

@@ -31,14 +31,15 @@ private:
      */
     QString m_data;
     QString jQuery;
-    QStringList m_listCmd;
-    QStringList m_listUrl;
-    QStringList m_listType;
-    QList<int> m_listDelay;
+//    QStringList m_listCmd;
+//    QStringList m_listUrl;
+//    QStringList m_listType;
+//    QList<int> m_listDelay;
+    QList<QList<QString>> m_list;
+
     QUrl m_url;
     QWebEngineView *m_view = new QWebEngineView();
-    int curentUrlIndex = 1;
-    int currentFileIndex = 0;
+    int curentUrlIndex = 0;
     CreateDelay *m_createDelay;
     QThread *m_thread;
 
