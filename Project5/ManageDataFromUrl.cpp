@@ -66,12 +66,13 @@ void ManageDataFromUrl::loadUrl()
 {
     if (m_page->m_proxy->m_enalbe) {
         QNetworkProxy proxy;
-
-        proxy = QNetworkProxy::HttpProxy;
-        proxy.setHostName("46.101.24.27");
-        proxy.setPort(3128);
-        proxy.setUser("");
-        proxy.setPassword("");
+        if (m_page->m_proxy->m_typeProxy == "HTTP") {
+            proxy = QNetworkProxy::HttpProxy;
+        }
+        proxy.setHostName(m_page->m_proxy->m_ip);
+        proxy.setPort(m_page->m_proxy->m_port);
+        proxy.setUser(m_page->m_proxy->m_user);
+        proxy.setPassword(m_page->m_proxy->m_password);
         QNetworkProxy::setApplicationProxy(proxy);
     }
 
