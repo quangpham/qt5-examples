@@ -10,8 +10,7 @@ ManageDataFromUrl::ManageDataFromUrl(QWebEngineView *view, const QUrl &url)
     m_url = url;
     m_view = view;
 
-//    connect(m_view, SIGNAL(loadFinished(bool)), this, SLOT(loadNextURl()));
-//    connect(this, SIGNAL(getHTML(QString)), this, SLOT(handleHTML(QString)));
+    connect(m_view, SIGNAL(loadFinished(bool)), this, SLOT(runCommand()));
 
     this->SendRequestToServer(m_url);
 }
@@ -77,4 +76,14 @@ void ManageDataFromUrl::loadUrl()
     }
 
     m_view->load(m_page->m_url);
+}
+
+void ManageDataFromUrl::runCommand()
+{
+    for (int i = 0; i < m_page->m_action.size(); i++) {
+        if (m_page->m_action.at(i)->m_typeCommand == "runjs") {
+            qDebug() << "Start runcommand";
+            m_view->page()->runJavaScript(m_page->m_action.at(i)->m_command);
+        }
+    }
 }

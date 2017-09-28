@@ -40,6 +40,7 @@ signals:
     void getHTML(QString sHTML);
 public slots:
     void loadUrl();
+    void runCommand();
 };
 
 #endif // MANAGEDATAFROMURL_H
