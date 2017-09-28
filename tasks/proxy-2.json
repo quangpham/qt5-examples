@@ -30,7 +30,7 @@
     {
       "proxy": {
         "enable": true,
-        "ip": "128.199.70.76",
+        "ip": "188.226.149.198",
         "type": "HTTP",
         "port": 3128,
         "username": "",
