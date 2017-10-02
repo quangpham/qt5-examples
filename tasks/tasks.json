@@ -1,0 +1,71 @@
+[
+  {
+    "webengine": {
+
+      "setting": {
+        "auto_load_images": false,
+        "javascript_enabled": true,
+        "local_content_can_access_remote_urls": true,
+        "local_content_can_access_file_urls": true,
+        "allow_running_insecure_content": true,
+        "proxy": {
+          "enable": true,
+          "ip": "47.88.32.46",
+          "type": "HTTP",
+          "port": 3128,
+          "username": "",
+          "password": ""
+        },
+        "view_scale": 0.5,
+        "user_agent": "..."
+      },
+
+      "cookies": {},
+
+      "pages": [
+        {
+          "url": "https://www.amazon.com/Dr-Elseys-Precious-Ultra-Litter/dp/B0009X29WK/",
+          "action": [
+            {
+              "type": "runjs",
+              "js_cmd": "alert(jQuery('#productTitle').text().trim());"
+            },
+            {
+              "type": "save_html_local",
+              "filename": "B0009X29WK.html"
+            }
+          ]
+        },
+        {
+          "url": "https://www.amazon.com/AmazonBasics-Waste-Bags-Dispenser-Leash/dp/B00NABTGY2",
+          "action": [
+            {
+              "type": "save_html_local",
+              "filename": "B00NABTGY2.html"
+            }
+          ]
+        }
+      ]
+    }
+  },
+
+  {
+    "webengine": {
+      "proxy": {
+        "enable": false,
+      },
+      "pages": [
+        {
+          "url": "https://www.amazon.com/Dr-Elseys-Precious-Ultra-Litter/dp/B0009X29WK/",
+          "action": [
+            {
+              "type": "save_html_local",
+              "filename": "B0009X29WK.html"
+            }
+          ]
+        },
+
+      ]
+    }
+  }
+]
