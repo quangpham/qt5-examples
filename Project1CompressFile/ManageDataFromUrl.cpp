@@ -133,15 +133,9 @@ void ManageDataFromUrl::compressFile(QString inputFileName)
     QFile fo(outputFileName);
 
     if(fi.open(QFile::ReadOnly) && fo.open(QFile::WriteOnly)) {
-        int compress_level = 9;
+        int compress_level = 9;// smallist file and slowly speed
         fo.write(qCompress(fi.readAll(), compress_level));
         fi.close();
         fo.close();
     }
-}
-
-void ManageDataFromUrl::uncompressFile(QString fileName)
-{
-    QByteArray unCpFile = qUncompress(fileName);
-    readContentHTMLfromFile(unCpFile);
 }

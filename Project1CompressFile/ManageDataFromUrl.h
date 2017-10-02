@@ -25,7 +25,6 @@ public:
     void writeContentHTMLtoFile(QString fileName, QString data);
     void readContentHTMLfromFile(QString fileName);
     void compressFile(QString inputFileName);
-    void uncompressFile(QString fileName);
 private:
     /**
      * @brief m_data: This is data receive from SERVER_URL
