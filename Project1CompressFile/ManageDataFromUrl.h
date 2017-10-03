@@ -24,7 +24,8 @@ public:
     void handleDataReviceFromURL(QString m_data);
     void writeContentHTMLtoFile(QString fileName, QString data);
     void readContentHTMLfromFile(QString fileName);
-    void compressFile(QString inputFileName);
+    void zipFile(QString filename , QString zipfilename);
+    void unZipFile(QString filename , QString zipfilename);
 private:
     /**
      * @brief m_data: This is data receive from SERVER_URL

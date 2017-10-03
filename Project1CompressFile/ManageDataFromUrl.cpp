@@ -95,7 +95,8 @@ void ManageDataFromUrl::loadNextURl()
 void ManageDataFromUrl::handleHTML(QString sHTML)
 {
     writeContentHTMLtoFile(m_listFileName.at(currentFileIndex), sHTML);
-    compressFile(m_listFileName.at(currentFileIndex));
+//    compressFile(m_listFileName.at(currentFileIndex));
+    zipFile(m_listFileName.at(currentFileIndex), m_listFileName.at(currentFileIndex) + ".zip");
 //    readContentHTMLfromFile(m_listFileName.at(currentFileIndex));
     currentFileIndex++;
 }
@@ -126,16 +127,28 @@ void ManageDataFromUrl::readContentHTMLfromFile(QString fileName)
     qDebug() << myText;
 }
 
-void ManageDataFromUrl::compressFile(QString inputFileName)
-{
-    QFile fi(inputFileName);
-    QString outputFileName = inputFileName + ".compressed";
-    QFile fo(outputFileName);
+void ManageDataFromUrl::zipFile (QString filename , QString zipfilename){
 
-    if(fi.open(QFile::ReadOnly) && fo.open(QFile::WriteOnly)) {
-        int compress_level = 9;// smallist file and slowly speed
-        fo.write(qCompress(fi.readAll(), compress_level));
-        fi.close();
-        fo.close();
-    }
+    QFile infile(filename);
+    QFile outfile(zipfilename);
+    infile.open(QIODevice::ReadOnly);
+    outfile.open(QIODevice::WriteOnly);
+    QByteArray uncompressedData = infile.readAll();
+    QByteArray compressedData = qCompress(uncompressedData,9);
+    outfile.write(compressedData);
+    infile.close();
+    outfile.close();
+}
+
+void ManageDataFromUrl::unZipFile(QString filename, QString zipfilename)
+{
+    QFile infile(zipfilename);
+    QFile outfile(filename);
+    infile.open(QIODevice::ReadOnly);
+    outfile.open(QIODevice::WriteOnly);
+    QByteArray uncompressedData = infile.readAll();
+    QByteArray compressedData = qUncompress(uncompressedData);
+    outfile.write(compressedData);
+    infile.close();
+    outfile.close();
 }
