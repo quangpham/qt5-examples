@@ -129,15 +129,18 @@ void ManageDataFromUrl::readContentHTMLfromFile(QString fileName)
 
 void ManageDataFromUrl::zipFile (QString filename , QString zipfilename){
 
-    QFile infile(filename);
-    QFile outfile(zipfilename);
-    infile.open(QIODevice::ReadOnly);
-    outfile.open(QIODevice::WriteOnly);
-    QByteArray uncompressedData = infile.readAll();
-    QByteArray compressedData = qCompress(uncompressedData,9);
-    outfile.write(compressedData);
-    infile.close();
-    outfile.close();
+//    QFile infile(filename);
+//    QFile outfile(zipfilename);
+//    infile.open(QIODevice::ReadOnly);
+//    outfile.open(QIODevice::WriteOnly);
+//    QByteArray uncompressedData = infile.readAll();
+//    QByteArray compressedData = qCompress(uncompressedData,9);
+//    outfile.write(compressedData);
+//    infile.close();
+//    outfile.close();
+    QString command = "zip " + zipfilename + " " + filename;
+    qDebug() << "hunght abcd 1234" << command;
+    system(command.toStdString().c_str());
 }
 
 void ManageDataFromUrl::unZipFile(QString filename, QString zipfilename)
