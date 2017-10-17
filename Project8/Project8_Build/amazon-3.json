@@ -1,0 +1,45 @@
+{
+  "pages": [
+    {
+      "url": "https://www.amazon.com/Dr-Elseys-Precious-Ultra-Litter/dp/B0009X29WK/",
+      "action": [
+        {
+          "type": "save_html_local",
+          "filename": "B0009X29WK.html"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/Bayer-Seresto-Collar-Large-Protection/dp/B00B8CG602",
+      "action": [
+        {
+          "type": "save_html_local",
+          "filename": "B00B8CG602.html"
+        }
+      ]
+    },
+    {
+      "url": "https://www.amazon.com/AmazonBasics-Waste-Bags-Dispenser-Leash/dp/B00NABTGY2",
+      "action": [
+        {
+          "type": "save_html_local",
+          "filename": "B00NABTGY2.html"
+        }
+      ]
+    }
+  ],
+
+  "after_actions": [
+    {
+      "type": "zip_files",
+      "filename": "file1.zip",
+      "files": [
+        "B0009X29WK.html", "B00B8CG602.html", "B00NABTGY2.html"
+      ]
+    },
+    {
+      "type": "upload_file",
+      "file": "file1.zip"
+    }
+  ]
+}
