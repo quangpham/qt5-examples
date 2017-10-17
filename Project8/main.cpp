@@ -3,8 +3,7 @@ Author: hunght
 Date: 21:00 17-10-2017
 Email: hunght.thaibinh@gmail.com
 Link Local File: amazon-3.json
-Load json
-Check proxy
+Read json
 Open urls
 Runjs
 ***********************************************************/
