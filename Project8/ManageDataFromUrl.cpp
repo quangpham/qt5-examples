@@ -82,7 +82,7 @@ void ManageDataFromUrl::handleHTML(QString sHTML)
     }
     if (m_currentIndex == m_listPage.length()) {
         qDebug() << "hunght abcd" << m_currentIndex;
-        runFunctionAfterAction();
+//        runFunctionAfterAction();
     }
 
 }
@@ -98,6 +98,7 @@ void ManageDataFromUrl::writeContentHTMLtoFile(QString fileName, QString data)
     out << data;
     file.flush();
     file.close();
+    this->funcZipFile(fileName);
 }
 
 void ManageDataFromUrl::runFunctionAfterAction()
@@ -114,6 +115,10 @@ void ManageDataFromUrl::runFunctionAfterAction()
 void ManageDataFromUrl::funcZipFile(QString fileName)
 {
     qDebug() << "Start zip file: Create file:" << fileName;
+    QString zipFileName = fileName + ".zip";
+    QString command = "zip " + zipFileName + " " + fileName;
+    system(command.toStdString().c_str());
+
 }
 
 void ManageDataFromUrl::funcUploadFile(QString fileName)
